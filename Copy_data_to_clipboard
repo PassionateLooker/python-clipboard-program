@@ -1,0 +1,15 @@
+import sys,shelve
+import pyperclip
+
+mdbshelf=shelve.open('mcb')
+
+if len(sys.argv)==3 and sys.argv[1].lower()=='save':
+    mdbshelf[sys.argv[2]]= pyperclip.paste()
+elif len(sys.argv)==2:
+    #list keywords and load content
+    if sys.argv[1].lower()=='list':
+        pyperclip.copy(str(list(mdbshelf.keys())))
+    elif sys.argv[1] in mdbshelf:
+        pyperclip.copy(mdbshelf[sys.argv[1]])
+
+mdbshelf.close()
